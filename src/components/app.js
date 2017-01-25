@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import Board from '../containers/board';
 
 export default class App extends Component {
   render() {
     return (
-      <div>React simple starter</div>
+      <div>
+        <div>Game of Life</div>
+        <Board />
+      </div>
     );
   }
 }

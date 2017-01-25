@@ -1,0 +1,26 @@
+:root {
+  --bg-color: #333;
+  --cell-bg-color: #999;
+  --alive-bg-color: pink;
+}
+
+body {
+  background-color: var(--bg-color) !important;
+}
+
+.board {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  background: var(--cell-bg-color);
+}
+
+.alive {
+  background: var(--alive-bg-color);
+}
+
