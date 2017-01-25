@@ -9,14 +9,15 @@ body {
 }
 
 .board {
-  display: flex;
-  flex-direction: row;
+  line-height: 0;
+  cursor: pointer;
+
 }
 
 .cell {
-  width: 20px;
-  height: 20px;
-  margin: 1px;
+  display: inline-block;
+  margin-right: 1px;
+  margin-bottom: 1px;
   background: var(--cell-bg-color);
 }
 

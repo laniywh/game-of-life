@@ -8,9 +8,9 @@ export function createCells(width, height) {
   }
 }
 
-export function toggleCell(i, j) {
+export function toggleCell(i) {
   return {
     type: TOGGLE_CELL,
-    payload: {i, j}
+    payload: i
   }
 }

@@ -5,53 +5,41 @@ import { bindActionCreators } from 'redux';
 import { toggleCell, createCells } from '../actions/index';
 
 class Board extends Component {
-  // componentWillMount() {
-  //   const { width, height } = this.props;
-
-  //   this.props.createCells(width, height);
-  // }
 
   renderCells() {
-    let cols = [];
+    const { width, height, cellWidth, cells } = this.props;
 
-    for(let i = 0; i < this.props.width; i++) {
-      cols.push(this.renderCol(i));
-    }
+    return cells.map((cell, i) => {
+      return (
+        <Cell
+          key={`${i}`}
+          onCellClick={() => this.onCellClick(i)}
+          alive={cells[i].alive}
+          cellWidth={cellWidth} />
+      );
+    });
 
-    return cols;
   }
 
-  renderCol(j) {
-    let cells = [];
-
-    for (let i = 0; i < this.props.height; i++) {
-      cells.push(this.renderCell(i, j));
-    }
-
-    return <div key={j}>{cells}</div>;
-  }
-
-  renderCell(i, j) {
-    const { cells } = this.props;
-
-    return (
-      <Cell
-        key={`${i}${j}`}
-        // cells={this.props.cells}
-        onCellClick={() => this.onCellClick(i, j)}
-        alive={cells[i][j].alive}
-        elemClass={cells[i][j].elemClass}
-      />
-    );
-  }
-
-  onCellClick(i, j) {
-    this.props.toggleCell(i, j);
-    // document.querySelector(`#cell-${i}-${j}`);
+  onCellClick(i) {
+    this.props.toggleCell(i);
   }
 
   render() {
-    return <div className="board">{this.renderCells()}</div>;
+    const { width, height, cellWidth } = this.props;
+
+    const boardWidth = cellWidth * width + width;
+    const style = {
+      width: `${boardWidth}px`
+    };
+
+    return (
+      <div
+        className="board"
+        style={style}>
+        {this.renderCells()}
+      </div>
+    );
   }
 }
 
@@ -59,6 +47,7 @@ const mapStateToProps = (state) => {
   return {
     width: state.board.width,
     height: state.board.height,
+    cellWidth: state.board.cellWidth,
     cells: state.cells,
   };
 }

@@ -7,22 +7,17 @@ const WIDTH = 10;
 const HEIGHT = 5;
 let cells = [];
 
-// Create an array of cells
-for (let i = 0; i < HEIGHT; i++) {
-  cells[i] = new Array(WIDTH);
-}
-for (let i = 0; i < cells.length; i++) {
-  for (let j = 0; j < cells[i].length; j++) {
-    cells[i][j] = {
-      alive: false
-    }
+for(let i = 0; i < WIDTH * HEIGHT; i++) {
+  cells[i] = {
+    alive: false,
   }
 }
 
 export const INITIAL_STATE = {
   board: {
     width: 10,
-    height: 5
+    height: 5,
+    cellWidth: 12
   },
   cells: cells,
 }

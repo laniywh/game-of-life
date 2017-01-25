@@ -1,42 +1,23 @@
 import { TOGGLE_CELL, CREATE_CELLS } from '../actions/index';
 import { INITIAL_STATE } from './index';
+import update from 'immutability-helper';
 
 
 
 export default function(state = INITIAL_STATE.cells, action) {
   switch(action.type) {
     case TOGGLE_CELL:
-    console.log('prev state:');
-      console.log(state);
-      const { i, j } = action.payload;
-      // const newAlive = !state[i][j].alive;
-      // console.log(state[i]);
-      // const newCells = update(state, {i: {j: {alive: {$set: newAlive}}}});
+      const i = action.payload;
 
-      // let newCells = state;
-      // const newAlive = !state[i][j].alive;
-      // newCells[i][j].alive = !state[i][j].alive;
-      // newCells[i][j].elemClass = 'cell alive';
-
-      const { width, height } = INITIAL_STATE.board;
-      let newCells = [];
-
-      for (let i = 0; i < height; i++) {
-        newCells[i] = new Array(width);
-      }
-
-      for(let r = 0; r < height; r++) {
-        for(let s = 0; s < width; s++) {
-          if(r == i && s == j) {
-            newCells[r][s] = {
-              alive: !state[i][j].alive
-            }
-          } else {
-            newCells[r][s] = state[r][s];
+      const newCells = state.map((cell, j) => {
+        if(j == i) {
+          return {
+            alive: !state[i].alive
           }
+        } else {
+          return state[j];
         }
-      }
-
+      })
 
       // console.log('newCells:');
       // console.log(newCells);
