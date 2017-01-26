@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Board from './board';
-import { toggleCell, setupInterval, newGeneration } from '../actions/index';
+import { toggleCell, setupInterval, stopRunning, newGeneration } from '../actions/index';
 
 class Game extends Component {
   componentDidMount() {
@@ -32,12 +32,15 @@ class Game extends Component {
   }
 
   start() {
+    if(this.props.interval) return;
+
     const run = setInterval(this.nextGen.bind(this), 100);
     this.props.setupInterval(run);
   }
 
   stop() {
     clearInterval(this.props.interval);
+    this.props.stopRunning();
   }
 
 
@@ -65,4 +68,4 @@ const mapStateToProps = ({ board, cells, interval }) => {
   return { board, cells, interval };
 }
 
-export default connect(mapStateToProps, {toggleCell, setupInterval, newGeneration})(Game);
+export default connect(mapStateToProps, {toggleCell, setupInterval, stopRunning, newGeneration})(Game);

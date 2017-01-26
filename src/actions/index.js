@@ -2,6 +2,8 @@ export const CREATE_CELLS = 'CREATE_CELLS';
 export const TOGGLE_CELL = 'TOGGLE_CELL';
 export const NEW_GENERATION = 'NEW_GENERATION';
 export const SETUP_INTERVAL = 'SETUP_INTERVAL';
+export const STOP_RUNNING = 'STOP_RUNNING';
+
 
 export function createCells(width, height) {
   return {
@@ -21,6 +23,13 @@ export function setupInterval(interval) {
   return {
     type: SETUP_INTERVAL,
     payload: interval
+  }
+}
+
+export function stopRunning() {
+  return {
+    type: STOP_RUNNING,
+    payload: null
   }
 }
 
