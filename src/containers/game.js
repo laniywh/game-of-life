@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import Board from './board';
-import { toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed } from '../actions/index';
+import { toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed, increaseGeneration } from '../actions/index';
 import { SLOW, MEDIUM, FAST } from '../reducers/index';
 
 class Game extends Component {
@@ -19,6 +19,7 @@ class Game extends Component {
 
   nextGen() {
     this.props.newGeneration();
+    this.props.increaseGeneration();
   }
 
   clear() {
@@ -52,7 +53,7 @@ class Game extends Component {
 
 
   render() {
-    const { board, cells, speed } = this.props;
+    const { board, cells, speed, generation } = this.props;
 
     return (
       <div>
@@ -60,6 +61,8 @@ class Game extends Component {
         <button onClick={this.nextGen.bind(this)}>Step</button>
         <button onClick={this.clear.bind(this)}>Clear</button>
         <button onClick={this.stop.bind(this)}>Stop</button>
+
+        <span>Generation: {generation}</span>
 
         <Board
           width={board.width}
@@ -90,12 +93,12 @@ class Game extends Component {
 
 }
 
-const mapStateToProps = ({ board, cells, interval, speed }) => {
-  return { board, cells, interval, speed };
+const mapStateToProps = ({ board, cells, interval, speed, generation }) => {
+  return { board, cells, interval, speed, generation };
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed}, dispatch);
+  return bindActionCreators({toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed, increaseGeneration}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

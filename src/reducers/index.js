@@ -3,6 +3,7 @@ import BoardReducer from './reducer_board';
 import CellsReducer from './reducer_cells';
 import IntervalReducer from './reducer_interval';
 import SpeedReducer from './reducer_speed';
+import GenerationReducer from './reducer_generation';
 
 export const SLOW = 500;
 export const MEDIUM = 300;
@@ -33,7 +34,8 @@ export const INITIAL_STATE = {
   },
   cells: cells,
   interval: null,
-  speed: FAST
+  speed: FAST,
+  generation: 1
 }
 
 
@@ -43,6 +45,7 @@ const rootReducer = combineReducers({
   cells: CellsReducer,
   interval: IntervalReducer,
   speed: SpeedReducer,
+  generation: GenerationReducer
 });
 
 export default rootReducer;

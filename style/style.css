@@ -6,6 +6,7 @@
 
 body {
   background-color: var(--bg-color) !important;
+  color: #fff !important;
 }
 
 .board {
@@ -27,7 +28,7 @@ body {
 
 button {
   border: none;
-  background-color: rgba(255,255,255,.7);
+  background-color: rgba(255,255,255,.6);
 }
 
 button.active {
