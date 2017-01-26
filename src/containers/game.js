@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import Board from './board';
-import { toggleCell, setupInterval, stopRunning, newGeneration } from '../actions/index';
+import { toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed } from '../actions/index';
+import { SLOW, MEDIUM, FAST } from '../reducers/index';
 
 class Game extends Component {
   componentDidMount() {
     // const run = setInterval(this.nextGen.bind(this), 100);
     // this.props.saveInterval(run);
-    this.start();
+    this.start(this.props.speed);
   }
 
   componentWillMount() {
@@ -31,10 +33,10 @@ class Game extends Component {
     this.stop();
   }
 
-  start() {
-    if(this.props.interval) return;
+  start(speed) {
+    clearInterval(this.props.interval);
 
-    const run = setInterval(this.nextGen.bind(this), 100);
+    const run = setInterval(this.nextGen.bind(this), speed);
     this.props.setupInterval(run);
   }
 
@@ -43,29 +45,57 @@ class Game extends Component {
     this.props.stopRunning();
   }
 
+  onSpeedClick(speed) {
+    this.start(speed);
+    this.props.changeSpeed(speed);
+  }
+
 
   render() {
-    const { board, cells } = this.props;
+    const { board, cells, speed } = this.props;
 
     return (
       <div>
+        <button onClick={this.start.bind(this)}>Start</button>
+        <button onClick={this.nextGen.bind(this)}>Step</button>
+        <button onClick={this.clear.bind(this)}>Clear</button>
+        <button onClick={this.stop.bind(this)}>Stop</button>
+
         <Board
           width={board.width}
           height={board.height}
           cellWidth={board.cellWidth}
           cells={cells} />
-        <button onClick={this.start.bind(this)}>Start</button>
-        <button onClick={this.nextGen.bind(this)}>Step</button>
-        <button onClick={this.clear.bind(this)}>Clear</button>
-        <button onClick={this.stop.bind(this)}>Stop</button>
+
+        <span>Sim Speed:</span>
+        <button
+          className={classNames({active: speed == SLOW})}
+          onClick={() => this.onSpeedClick(SLOW)}>
+          Slow
+        </button>
+        <button
+          className={classNames({active: speed == MEDIUM})}
+          onClick={() => this.onSpeedClick(MEDIUM)}>
+          Medium
+        </button>
+        <button
+          className={classNames({active: speed == FAST})}
+          onClick={() => this.onSpeedClick(FAST)}>
+          Fast
+        </button>
+
       </div>
     );
   }
 
 }
 
-const mapStateToProps = ({ board, cells, interval }) => {
-  return { board, cells, interval };
+const mapStateToProps = ({ board, cells, interval, speed }) => {
+  return { board, cells, interval, speed };
 }
 
-export default connect(mapStateToProps, {toggleCell, setupInterval, stopRunning, newGeneration})(Game);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

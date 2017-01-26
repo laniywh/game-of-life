@@ -1,5 +1,5 @@
 import { INITIAL_STATE } from './index';
-import { SAVE_INTERVAL, SETUP_INTERVAL, STOP_RUNNING } from '../actions/index';
+import { SETUP_INTERVAL, STOP_RUNNING } from '../actions/index';
 
 export default function(state = INITIAL_STATE.interval, action) {
   switch(action.type) {

@@ -2,7 +2,11 @@ import { combineReducers } from 'redux';
 import BoardReducer from './reducer_board';
 import CellsReducer from './reducer_cells';
 import IntervalReducer from './reducer_interval';
+import SpeedReducer from './reducer_speed';
 
+export const SLOW = 500;
+export const MEDIUM = 300;
+export const FAST = 100;
 
 const WIDTH = 50;
 const HEIGHT = 30;
@@ -28,7 +32,8 @@ export const INITIAL_STATE = {
     cellWidth: 12
   },
   cells: cells,
-  interval: null
+  interval: null,
+  speed: FAST
 }
 
 
@@ -37,6 +42,7 @@ const rootReducer = combineReducers({
   board: BoardReducer,
   cells: CellsReducer,
   interval: IntervalReducer,
+  speed: SpeedReducer,
 });
 
 export default rootReducer;
