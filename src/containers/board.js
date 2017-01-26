@@ -7,7 +7,7 @@ import { toggleCell, createCells } from '../actions/index';
 class Board extends Component {
 
   renderCells() {
-    const { width, height, cellWidth, cells } = this.props;
+    const { cellWidth, cells } = this.props;
 
     return cells.map((cell, i) => {
       return (
@@ -43,17 +43,17 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    width: state.board.width,
-    height: state.board.height,
-    cellWidth: state.board.cellWidth,
-    cells: state.cells,
-  };
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     width: state.board.width,
+//     height: state.board.height,
+//     cellWidth: state.board.cellWidth,
+//     cells: state.cells,
+//   };
+// }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ toggleCell, createCells }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default connect(null, mapDispatchToProps)(Board);

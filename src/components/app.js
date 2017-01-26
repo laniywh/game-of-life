@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Board from '../containers/board';
+import Game from '../containers/game';
 
 export default class App extends Component {
   render() {
     return (
       <div>
         <div>Game of Life</div>
-        <Board />
+        <Game />
       </div>
     );
   }

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { toggleCell } from '../actions/index';
 import classNames from 'classnames';
 
 export default function({ onCellClick, alive, cellWidth }) {
@@ -12,7 +10,6 @@ export default function({ onCellClick, alive, cellWidth }) {
   return (
     <div
       className={classNames('cell', {alive})}
-      // id={`cell-${i}-${j}`}
       onClick={onCellClick}
       style={style}>
     </div>
