@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Cell from './cell';
+import Cell from '../components/cell';
 import { bindActionCreators } from 'redux';
 import { toggleCell, createCells } from '../actions/index';
 
