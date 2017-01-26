@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Board from './board';
-import { toggleCell, saveInterval, newGeneration } from '../actions/index';
+import { toggleCell, setupInterval, newGeneration } from '../actions/index';
 
 class Game extends Component {
   componentDidMount() {
-    const run = setInterval(this.nextGen.bind(this), 100);
-    this.props.saveInterval(run);
+    // const run = setInterval(this.nextGen.bind(this), 100);
+    // this.props.saveInterval(run);
+    this.start();
   }
 
   componentWillMount() {
@@ -30,6 +31,11 @@ class Game extends Component {
     this.stop();
   }
 
+  start() {
+    const run = setInterval(this.nextGen.bind(this), 100);
+    this.props.setupInterval(run);
+  }
+
   stop() {
     clearInterval(this.props.interval);
   }
@@ -45,6 +51,7 @@ class Game extends Component {
           height={board.height}
           cellWidth={board.cellWidth}
           cells={cells} />
+        <button onClick={this.start.bind(this)}>Start</button>
         <button onClick={this.nextGen.bind(this)}>Step</button>
         <button onClick={this.clear.bind(this)}>Clear</button>
         <button onClick={this.stop.bind(this)}>Stop</button>
@@ -58,4 +65,4 @@ const mapStateToProps = ({ board, cells, interval }) => {
   return { board, cells, interval };
 }
 
-export default connect(mapStateToProps, {toggleCell, saveInterval, newGeneration})(Game);
+export default connect(mapStateToProps, {toggleCell, setupInterval, newGeneration})(Game);

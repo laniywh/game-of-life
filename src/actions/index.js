@@ -1,7 +1,7 @@
 export const CREATE_CELLS = 'CREATE_CELLS';
 export const TOGGLE_CELL = 'TOGGLE_CELL';
-export const SAVE_INTERVAL = 'SAVE_INTERVAL';
 export const NEW_GENERATION = 'NEW_GENERATION';
+export const SETUP_INTERVAL = 'SETUP_INTERVAL';
 
 export function createCells(width, height) {
   return {
@@ -17,9 +17,9 @@ export function toggleCell(i) {
   }
 }
 
-export function saveInterval(interval) {
+export function setupInterval(interval) {
   return {
-    type: SAVE_INTERVAL,
+    type: SETUP_INTERVAL,
     payload: interval
   }
 }
