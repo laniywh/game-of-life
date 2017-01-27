@@ -10,9 +10,11 @@ function newGeneration(state, action) {
   height = INITIAL_STATE.board.height;
 
   // const { board, cells } = this.props;
+  const cells = state.cells;
+  let newLives = state.lives;
 
-  const newCells = state.map((cell, i) => {
-    const numOfNeighbors = getNumOfNeighbors(state, i);
+  const newCells = cells.map((cell, i) => {
+    const numOfNeighbors = getNumOfNeighbors(cells, i);
     // console.log('i: ', i, numOfNeighbors);
 
     if(cell.alive) {
@@ -20,6 +22,7 @@ function newGeneration(state, action) {
       if(!isEquilibrium(numOfNeighbors)) {
         // console.log('non equilibrium');
         // this.props.toggleCell(i);
+        newLives--;
         return { alive: false }
       }
       return cell;
@@ -27,6 +30,7 @@ function newGeneration(state, action) {
     } else {
       if(canReproduce(numOfNeighbors)) {
         // this.props.toggleCell(i);
+        newLives++;
         return { alive: true }
       }
       return cell;
@@ -53,7 +57,10 @@ function newGeneration(state, action) {
   //   }
   // });
 
-  return newCells;
+  return {
+    cells: newCells,
+    lives: newLives
+  };
 }
 
 
@@ -100,46 +107,53 @@ function right(i) {
 
 
 
-export default function(state = INITIAL_STATE.cells, action) {
+export default function(state = INITIAL_STATE.cellsData, action) {
   switch(action.type) {
     case NEW_GENERATION: return newGeneration(state, action);
 
     case TOGGLE_CELL:
       const i = action.payload;
+      const cells = state.cells;
+      let newLives = state.lives;
 
-      const newCells = state.map((cell, j) => {
+      const newCells = cells.map((cell, j) => {
         if(j == i) {
+          cells[i].alive ? newLives-- : newLives++;
           return {
-            alive: !state[i].alive
+            alive: !cells[i].alive
           }
         } else {
-          return state[j];
+          return cells[j];
         }
       })
 
       // console.log('newCells:');
       // console.log(newCells);
-      return newCells;
+      return {
+        cells: newCells,
+        lives: newLives
+      };
 
-    case CREATE_CELLS:
-      let cells = [];
-      const { newWidth, newHeight } = action.payload;
+
+    // case CREATE_CELLS:
+    //   let cells = [];
+    //   const { newWidth, newHeight } = action.payload;
 
 
-      // Create empty arrays
-      for (let i = 0; i < newHeight; i++) {
-        cells[i] = new Array(newWidth);
-      }
+    //   // Create empty arrays
+    //   for (let i = 0; i < newHeight; i++) {
+    //     cells[i] = new Array(newWidth);
+    //   }
 
-      // Fill each slot with a cell
-      for (let i = 0; i < cells.length; i++) {
-        for (let j = 0; j < cells[i].length; j++) {
-          cells[i][j] = {
-            alive: false,
-          }
-        }
-      }
-      return cells;
+    //   // Fill each slot with a cell
+    //   for (let i = 0; i < cells.length; i++) {
+    //     for (let j = 0; j < cells[i].length; j++) {
+    //       cells[i][j] = {
+    //         alive: false,
+    //       }
+    //     }
+    //   }
+    //   return cells;
   }
   return state;
 }

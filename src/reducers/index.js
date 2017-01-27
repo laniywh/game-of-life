@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import BoardReducer from './reducer_board';
-import CellsReducer from './reducer_cells';
+import CellsDataReducer from './reducer_cellsdata';
 import IntervalReducer from './reducer_interval';
 import SpeedReducer from './reducer_speed';
 import GenerationReducer from './reducer_generation';
@@ -12,6 +12,7 @@ export const FAST = 100;
 const WIDTH = 50;
 const HEIGHT = 30;
 let cells = [];
+let lives = 0;
 
 // Generate 0 or 1
 function getRandomInt(min, max) {
@@ -21,9 +22,15 @@ function getRandomInt(min, max) {
 }
 
 for(let i = 0; i < WIDTH * HEIGHT; i++) {
-  cells[i] = {
-    alive: getRandomInt(0, 2) ? true : false
+  if(getRandomInt(0, 2)) {
+    cells[i] = {alive: true};
+    lives++;
+  } else {
+    cells[i] = {alive: false};
   }
+  // cells[i] = {
+  //   alive: getRandomInt(0, 2) ? true : false
+  // }
 }
 
 export const INITIAL_STATE = {
@@ -32,17 +39,20 @@ export const INITIAL_STATE = {
     height: HEIGHT,
     cellWidth: 12
   },
-  cells: cells,
+  cellsData: {
+    cells: cells,
+    lives: lives
+  },
   interval: null,
   speed: FAST,
-  generation: 1
+  generation: 1,
 }
 
 
 
 const rootReducer = combineReducers({
   board: BoardReducer,
-  cells: CellsReducer,
+  cellsData: CellsDataReducer,
   interval: IntervalReducer,
   speed: SpeedReducer,
   generation: GenerationReducer

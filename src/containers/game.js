@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import Board from './board';
+import Stats from '../components/stats';
 import { toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed, increaseGeneration } from '../actions/index';
 import { SLOW, MEDIUM, FAST } from '../reducers/index';
 
@@ -14,7 +15,7 @@ class Game extends Component {
   }
 
   componentWillMount() {
-    this.stop();
+    this.pause();
   }
 
   nextGen() {
@@ -23,15 +24,15 @@ class Game extends Component {
   }
 
   clear() {
-    const { cells, toggleCell } = this.props;
+    const { cellsData, toggleCell } = this.props;
 
-    cells.forEach((cell, i) => {
+    cellsData.cells.forEach((cell, i) => {
       if(cell.alive) {
         toggleCell(i);
       }
     });
 
-    this.stop();
+    this.pause();
   }
 
   start(speed) {
@@ -41,7 +42,7 @@ class Game extends Component {
     this.props.setupInterval(run);
   }
 
-  stop() {
+  pause() {
     clearInterval(this.props.interval);
     this.props.stopRunning();
   }
@@ -53,48 +54,51 @@ class Game extends Component {
 
 
   render() {
-    const { board, cells, speed, generation } = this.props;
+    const { board, cellsData, speed, generation } = this.props;
 
     return (
-      <div>
-        <button onClick={this.start.bind(this)}>Start</button>
-        <button onClick={this.nextGen.bind(this)}>Step</button>
-        <button onClick={this.clear.bind(this)}>Clear</button>
-        <button onClick={this.stop.bind(this)}>Stop</button>
+      <div className="flex flex-row">
+        <div>
+          <button onClick={this.start.bind(this)}>Start</button>
+          <button onClick={this.pause.bind(this)}>Pause</button>
+          <button onClick={this.nextGen.bind(this)}>Step</button>
+          <button onClick={this.clear.bind(this)}>Clear</button>
 
-        <span>Generation: {generation}</span>
+          <Board
+            width={board.width}
+            height={board.height}
+            cellWidth={board.cellWidth}
+            cells={cellsData.cells} />
 
-        <Board
-          width={board.width}
-          height={board.height}
-          cellWidth={board.cellWidth}
-          cells={cells} />
+          <span>Sim Speed:</span>
+          <button
+            className={classNames({active: speed == SLOW})}
+            onClick={() => this.onSpeedClick(SLOW)}>
+            Slow
+          </button>
+          <button
+            className={classNames({active: speed == MEDIUM})}
+            onClick={() => this.onSpeedClick(MEDIUM)}>
+            Medium
+          </button>
+          <button
+            className={classNames({active: speed == FAST})}
+            onClick={() => this.onSpeedClick(FAST)}>
+            Fast
+          </button>
 
-        <span>Sim Speed:</span>
-        <button
-          className={classNames({active: speed == SLOW})}
-          onClick={() => this.onSpeedClick(SLOW)}>
-          Slow
-        </button>
-        <button
-          className={classNames({active: speed == MEDIUM})}
-          onClick={() => this.onSpeedClick(MEDIUM)}>
-          Medium
-        </button>
-        <button
-          className={classNames({active: speed == FAST})}
-          onClick={() => this.onSpeedClick(FAST)}>
-          Fast
-        </button>
-
+        </div>
+        <div>
+          <Stats generation={generation} lives={cellsData.lives}/>
+        </div>
       </div>
     );
   }
 
 }
 
-const mapStateToProps = ({ board, cells, interval, speed, generation }) => {
-  return { board, cells, interval, speed, generation };
+const mapStateToProps = ({ board, cellsData, interval, speed, generation }) => {
+  return { board, cellsData, interval, speed, generation };
 }
 
 const mapDispatchToProps = (dispatch) => {
