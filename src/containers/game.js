@@ -57,7 +57,7 @@ class Game extends Component {
     return (
       <div className="flex flex-row">
         <div className="flex-item">
-          <button onClick={this.start.bind(this)}>Start</button>
+          <button onClick={() => this.start(speed).bind(this)}>Start</button>
           <button onClick={this.pause.bind(this)}>Pause</button>
           <button onClick={this.nextGen.bind(this)}>Step</button>
           <button className="button-danger" onClick={this.clear.bind(this)}>Clear</button>
