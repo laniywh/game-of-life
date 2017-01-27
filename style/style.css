@@ -5,6 +5,17 @@
   --alive-bg-color: #F5D76E;
 }
 
+hr {
+  border: 1px solid #fff;
+  margin-bottom: 30px;
+}
+
+.button-danger {
+  background-color: #D7554E;
+  border-bottom: 5px solid #AE4642;
+  text-shadow: 0px -2px #AE4642;
+}
+
 body {
   font-family: 'Press Start 2P', cursive;
   background-color: var(--bg-color) !important;
@@ -18,22 +29,24 @@ body {
 .flex-row {
   flex-direction: row;
 }
-
-.title {
-  margin: 40px;
-  font-size: 30px;
+.flex-item {
+  padding: 25px;
+  background-color: var(--container-bg-color);
+  margin: 10px;
+  text-align: center;
 }
 
-.container {
-  background-color: var(--container-bg-color);
-  padding: 20px;
+header {
+  margin: 40px;
+}
+.title {
+  font-size: 30px;
 }
 
 .board {
   line-height: 0;
   cursor: pointer;
-  margin: 5px 20px 15px 0;
-
+  margin: 5px auto 15px;
 }
 
 .cell {
@@ -60,9 +73,10 @@ button {
   min-width: 115px;
   cursor: pointer;
 
-  background-color: #F2CF66;
-  border-bottom: 5px solid #D1B358;
-  text-shadow: 0px -2px #D1B358;
+  background-color: var(--cell-bg-color);
+  border-bottom: 5px solid #7F7F7F;
+  text-shadow: 0px -2px #7F7F7F;
+
 
   transition: all 0.1s;
   -webkit-transition: all 0.1s;
@@ -75,12 +89,18 @@ button:active {
 }
 
 button.active {
-  background-color: #F7CA18;
+  background-color: #F2CF66;
+  border-bottom: 5px solid #D1B358;
+  text-shadow: 0px -2px #D1B358;
 }
 
 
 /* ==== STATS ==== */
+.stats {
+  min-width: 320px;
+  font-size: .9rem;
+}
 .stats-title {
-  font-size: 25px;
-  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  margin-bottom: 1.4rem;
 }

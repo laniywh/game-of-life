@@ -43,15 +43,6 @@ class Board extends Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     width: state.board.width,
-//     height: state.board.height,
-//     cellWidth: state.board.cellWidth,
-//     cells: state.cells,
-//   };
-// }
-
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ toggleCell, createCells }, dispatch);
 }

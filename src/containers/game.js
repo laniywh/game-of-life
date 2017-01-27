@@ -9,8 +9,6 @@ import { SLOW, MEDIUM, FAST } from '../reducers/index';
 
 class Game extends Component {
   componentDidMount() {
-    // const run = setInterval(this.nextGen.bind(this), 100);
-    // this.props.saveInterval(run);
     this.start(this.props.speed);
   }
 
@@ -58,19 +56,19 @@ class Game extends Component {
 
     return (
       <div className="flex flex-row">
-        <div>
+        <div className="flex-item">
           <button onClick={this.start.bind(this)}>Start</button>
           <button onClick={this.pause.bind(this)}>Pause</button>
           <button onClick={this.nextGen.bind(this)}>Step</button>
-          <button onClick={this.clear.bind(this)}>Clear</button>
+          <button className="button-danger" onClick={this.clear.bind(this)}>Clear</button>
 
           <Board
+            className="board"
             width={board.width}
             height={board.height}
             cellWidth={board.cellWidth}
             cells={cellsData.cells} />
 
-          <span>Sim Speed:</span>
           <button
             className={classNames({active: speed == SLOW})}
             onClick={() => this.onSpeedClick(SLOW)}>
@@ -88,7 +86,7 @@ class Game extends Component {
           </button>
 
         </div>
-        <div>
+        <div className="flex-item stats">
           <Stats generation={generation} lives={cellsData.lives}/>
         </div>
       </div>

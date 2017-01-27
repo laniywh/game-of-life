@@ -9,19 +9,15 @@ function newGeneration(state, action) {
   width = INITIAL_STATE.board.width;
   height = INITIAL_STATE.board.height;
 
-  // const { board, cells } = this.props;
   const cells = state.cells;
   let newLives = state.lives;
 
   const newCells = cells.map((cell, i) => {
     const numOfNeighbors = getNumOfNeighbors(cells, i);
-    // console.log('i: ', i, numOfNeighbors);
 
     if(cell.alive) {
       // Die of inequilibrium
       if(!isEquilibrium(numOfNeighbors)) {
-        // console.log('non equilibrium');
-        // this.props.toggleCell(i);
         newLives--;
         return { alive: false }
       }
@@ -29,7 +25,6 @@ function newGeneration(state, action) {
 
     } else {
       if(canReproduce(numOfNeighbors)) {
-        // this.props.toggleCell(i);
         newLives++;
         return { alive: true }
       }
@@ -38,24 +33,6 @@ function newGeneration(state, action) {
 
   });
 
-
-  // state.forEach((cell, i) => {
-  //   const numOfNeighbors = this.getNumOfNeighbors(i);
-  //   // console.log('i: ', i, numOfNeighbors);
-
-  //   if(cell.alive) {
-  //     // Die of inequilibrium
-  //     if(!this.isEquilibrium(numOfNeighbors)) {
-  //       // console.log('non equilibrium');
-  //       this.props.toggleCell(i);
-  //     }
-
-  //   } else {
-  //     if(this.canReproduce(numOfNeighbors)) {
-  //       this.props.toggleCell(i);
-  //     }
-  //   }
-  // });
 
   return {
     cells: newCells,
@@ -105,55 +82,33 @@ function right(i) {
 }
 
 
+function toggleCell(state, action) {
+  const i = action.payload;
+  const cells = state.cells;
+  let newLives = state.lives;
+
+  const newCells = cells.map((cell, j) => {
+    if(j == i) {
+      cells[i].alive ? newLives-- : newLives++;
+      return {
+        alive: !cells[i].alive
+      }
+    } else {
+      return cells[j];
+    }
+  })
+
+  return {
+    cells: newCells,
+    lives: newLives
+  };
+}
 
 
 export default function(state = INITIAL_STATE.cellsData, action) {
   switch(action.type) {
     case NEW_GENERATION: return newGeneration(state, action);
-
-    case TOGGLE_CELL:
-      const i = action.payload;
-      const cells = state.cells;
-      let newLives = state.lives;
-
-      const newCells = cells.map((cell, j) => {
-        if(j == i) {
-          cells[i].alive ? newLives-- : newLives++;
-          return {
-            alive: !cells[i].alive
-          }
-        } else {
-          return cells[j];
-        }
-      })
-
-      // console.log('newCells:');
-      // console.log(newCells);
-      return {
-        cells: newCells,
-        lives: newLives
-      };
-
-
-    // case CREATE_CELLS:
-    //   let cells = [];
-    //   const { newWidth, newHeight } = action.payload;
-
-
-    //   // Create empty arrays
-    //   for (let i = 0; i < newHeight; i++) {
-    //     cells[i] = new Array(newWidth);
-    //   }
-
-    //   // Fill each slot with a cell
-    //   for (let i = 0; i < cells.length; i++) {
-    //     for (let j = 0; j < cells[i].length; j++) {
-    //       cells[i][j] = {
-    //         alive: false,
-    //       }
-    //     }
-    //   }
-    //   return cells;
+    case TOGGLE_CELL: return toggleCell(state, action);
+    default: return state;
   }
-  return state;
 }

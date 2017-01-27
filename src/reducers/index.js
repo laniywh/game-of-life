@@ -28,9 +28,6 @@ for(let i = 0; i < WIDTH * HEIGHT; i++) {
   } else {
     cells[i] = {alive: false};
   }
-  // cells[i] = {
-  //   alive: getRandomInt(0, 2) ? true : false
-  // }
 }
 
 export const INITIAL_STATE = {
@@ -47,8 +44,6 @@ export const INITIAL_STATE = {
   speed: FAST,
   generation: 1,
 }
-
-
 
 const rootReducer = combineReducers({
   board: BoardReducer,
