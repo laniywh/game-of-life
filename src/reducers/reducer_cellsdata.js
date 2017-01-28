@@ -1,6 +1,5 @@
 import { TOGGLE_CELL, CLEAR_CELLS, NEW_GENERATION } from '../actions/index';
 import { INITIAL_STATE } from './index';
-import update from 'immutability-helper';
 
 
 let width, height;
