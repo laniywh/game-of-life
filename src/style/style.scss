@@ -1,9 +1,16 @@
+/*
 :root {
   --bg-color: #333;
   --container-bg-color: rgba(0,0,0,0.5);
   --cell-bg-color: #999;
   --alive-bg-color: #F5D76E;
 }
+*/
+$bgColor: #333;
+$containerBgColor: rgba(black, 0.5);
+$cellBgColor: #999;
+$aliveBgColor: #F5D76E;
+
 
 hr {
   border: 1px solid #fff;
@@ -18,7 +25,7 @@ hr {
 
 body {
   font-family: 'Press Start 2P', cursive;
-  background-color: var(--bg-color) !important;
+  background-color: $bgColor;
   color: #fff !important;
   font-size: 16px;
 }
@@ -31,7 +38,7 @@ body {
 }
 .flex-item {
   padding: 25px;
-  background-color: var(--container-bg-color);
+  background-color: $containerBgColor;
   margin: 10px;
   text-align: center;
 }
@@ -53,11 +60,11 @@ header {
   display: inline-block;
   margin-right: 1px;
   margin-bottom: 1px;
-  background: var(--cell-bg-color);
+  background: $cellBgColor;
 }
 
 .alive {
-  background: var(--alive-bg-color);
+  background: $aliveBgColor;
 }
 
 button {
@@ -73,7 +80,7 @@ button {
   min-width: 115px;
   cursor: pointer;
 
-  background-color: var(--cell-bg-color);
+  background-color: $cellBgColor;
   border-bottom: 5px solid #7F7F7F;
   text-shadow: 0px -2px #7F7F7F;
 

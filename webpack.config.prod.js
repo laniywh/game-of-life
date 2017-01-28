@@ -1,8 +1,12 @@
-module.exports = {
+const path = require('path')
+const webpack = require('webpack')
+
+export default {
   devtool: 'source-map',
   entry: [
-    './src/index.js'
+    './src/index'
   ],
+
   output: {
     path: path.join(__dirname, 'public'),
     publicPath: '/public/',
@@ -10,30 +14,27 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       compress: {
         warnings: false
       }
-    })
+    }),
   ],
 
   module: {
     loaders: [
-      {
-        exclude: /node_modules/,
+      { test: /\.js?$/,
         loader: 'babel',
-        query: {
-          presets: ['react', 'es2015', 'stage-1']
-        }
-      }
+        exclude: /node_modules/ },
+      { test: /\.scss?$/,
+        loader: 'style!css!sass',
+        include: path.join(__dirname, 'src', 'style') },
     ]
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './'
-  }
 };
