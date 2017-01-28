@@ -5,6 +5,7 @@ export const SETUP_INTERVAL = 'SETUP_INTERVAL';
 export const STOP_RUNNING = 'STOP_RUNNING';
 export const CHANGE_SPEED = 'CHANGE_SPEED';
 export const INCREASE_GENERATION = 'INCREASE_GENERATION';
+export const CLEAR_GENERATION = 'CLEAR_GENERATION';
 
 
 export function createCells(width, height) {
@@ -54,3 +55,10 @@ export function increaseGeneration() {
     type: INCREASE_GENERATION,
   }
 }
+
+export function clearGeneration() {
+  return {
+    type: CLEAR_GENERATION,
+  }
+}
+

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import Board from './board';
 import Stats from '../components/stats';
-import { toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed, increaseGeneration } from '../actions/index';
+import { toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed, increaseGeneration, clearGeneration } from '../actions/index';
 import { SLOW, MEDIUM, FAST } from '../reducers/index';
 
 class Game extends Component {
@@ -22,7 +22,7 @@ class Game extends Component {
   }
 
   clear() {
-    const { cellsData, toggleCell } = this.props;
+    const { cellsData, toggleCell, clearGeneration } = this.props;
 
     cellsData.cells.forEach((cell, i) => {
       if(cell.alive) {
@@ -30,6 +30,7 @@ class Game extends Component {
       }
     });
 
+    clearGeneration();
     this.pause();
   }
 
@@ -100,7 +101,7 @@ const mapStateToProps = ({ board, cellsData, interval, speed, generation }) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed, increaseGeneration}, dispatch);
+  return bindActionCreators({toggleCell, setupInterval, stopRunning, newGeneration, changeSpeed, increaseGeneration, clearGeneration}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

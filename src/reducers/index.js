@@ -42,7 +42,7 @@ export const INITIAL_STATE = {
   },
   interval: null,
   speed: FAST,
-  generation: 1,
+  generation: 0,
 }
 
 const rootReducer = combineReducers({
