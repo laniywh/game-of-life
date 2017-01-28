@@ -6,10 +6,11 @@
   "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
     "start": "webpack-dev-server --hot",
+    "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "clean-public": "npm run remove-public && mkdir public",
     "remove-public": "node_modules/.bin/rimraf ./public",
     "build:html": "babel-node tools/buildHtml.js",
-    "heroku-prebuild": "npm-run-all clean-public build:html",
+    "heroku-prebuild": "npm install npm-run-all && npm-run-all clean-public lint build:html",
     "build": "babel-node tools/build.js",
     "heroku-postbuild": "babel-node tools/publicServer.js"
   },
