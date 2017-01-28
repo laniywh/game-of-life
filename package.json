@@ -5,14 +5,9 @@
   "main": "index.js",
   "repository": "https://github.com/laniywh/game-of-life.git",
   "scripts": {
-    "start": "webpack-dev-server --hot",
-    "lint": "./node_modules/.bin/esw webpack.config.* src tools",
-    "clean-public": "npm run remove-public && mkdir public",
-    "remove-public": "./node_modules/.bin/rimraf ./public",
-    "build:html": "babel-node tools/buildHtml.js",
-    "heroku-prebuild": "npm install npm-run-all rimraf babel-cli && npm-run-all clean-public build:html",
-    "build": "babel-node tools/build.js",
-    "heroku-postbuild": "babel-node tools/publicServer.js"
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "postinstall": "webpack -p",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
