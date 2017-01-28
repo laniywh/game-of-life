@@ -6,11 +6,11 @@
   "repository": "https://github.com/laniywh/game-of-life.git",
   "scripts": {
     "start": "webpack-dev-server --hot",
-    "lint": "node_modules/.bin/esw webpack.config.* src tools",
+    "lint": "./node_modules/.bin/esw webpack.config.* src tools",
     "clean-public": "npm run remove-public && mkdir public",
-    "remove-public": "node_modules/.bin/rimraf ./public",
+    "remove-public": "./node_modules/.bin/rimraf ./public",
     "build:html": "babel-node tools/buildHtml.js",
-    "heroku-prebuild": "npm install npm-run-all rimraf && npm-run-all clean-public build:html",
+    "heroku-prebuild": "npm-run-all clean-public build:html",
     "build": "babel-node tools/build.js",
     "heroku-postbuild": "babel-node tools/publicServer.js"
   },
@@ -46,6 +46,7 @@
     "express": "4.13.4",
     "lodash": "^3.10.1",
     "node-sass": "^4.3.0",
+    "npm-run-all": "^4.0.1",
     "open": "0.0.5",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
@@ -53,6 +54,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.7.0",
     "redux": "^3.5.2",
+    "rimraf": "^2.5.4",
     "serve-favicon": "^2.3.0"
   }
 }
