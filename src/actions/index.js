@@ -6,19 +6,19 @@ export const STOP_RUNNING = 'STOP_RUNNING';
 export const CHANGE_SPEED = 'CHANGE_SPEED';
 export const INCREASE_GENERATION = 'INCREASE_GENERATION';
 export const CLEAR_GENERATION = 'CLEAR_GENERATION';
+export const CLEAR_CELLS = 'CLEAR_CELLS';
 
-
-export function createCells(width, height) {
-  return {
-    type: CREATE_CELLS,
-    payload: {newWidth, newHeight}
-  }
-}
 
 export function toggleCell(i) {
   return {
     type: TOGGLE_CELL,
     payload: i
+  }
+}
+
+export function clearCells() {
+  return {
+    type: CLEAR_CELLS
   }
 }
 

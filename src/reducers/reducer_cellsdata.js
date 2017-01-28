@@ -1,4 +1,4 @@
-import { TOGGLE_CELL, CREATE_CELLS, NEW_GENERATION } from '../actions/index';
+import { TOGGLE_CELL, CLEAR_CELLS, NEW_GENERATION } from '../actions/index';
 import { INITIAL_STATE } from './index';
 import update from 'immutability-helper';
 
@@ -104,11 +104,25 @@ function toggleCell(state, action) {
   };
 }
 
+function clearCells(state, action) {
+  const cells = state.cells;
+
+  const newCells = cells.map(cell => {
+    return cell.alive ? {alive: false} : cell;
+  });
+
+  return {
+    cells: newCells,
+    lives: 0
+  }
+}
+
 
 export default function(state = INITIAL_STATE.cellsData, action) {
   switch(action.type) {
     case NEW_GENERATION: return newGeneration(state, action);
     case TOGGLE_CELL: return toggleCell(state, action);
+    case CLEAR_CELLS: return clearCells(state, action);
     default: return state;
   }
 }
